@@ -1,0 +1,87 @@
+.userImg{
+  width: 90px;
+  height: 90px;
+  margin: 70px 293px 0px 62px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+.userName{
+  width: 200px;
+  margin: 0px 0px 14px 62px;
+}
+.viewButton{
+  width: 143px;
+  height: 39px;
+  border-radius: 19px;
+  border: solid 1px #e8e8e8;
+  background-color: #fff;
+}
+.contentdetail{
+  width: 630px;
+  height: 279px;
+  margin: 25px 270px 20px 50px;
+  font-family: NotoSans;
+  font-size: 17px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.53;
+  letter-spacing: normal;
+  text-align: left;
+  color: #414141;
+}
+.btnReCommandToCoWorker{
+  width: 350px;
+  height: 48px;
+  border-radius: 24px;
+  border: solid 2px #757575;
+  background-color: white;
+}
+.recommandtoCoWorker{
+  width: 43px;
+  height: 18px;
+  font-size: 22px;
+  text-align: left;
+  color: #757575;
+}
+
+.btnOpenMission {
+  width: 173px;
+  height: 48px;
+  border-radius: 24px;
+  border: solid 2px #f88634;
+  background-color: white;
+}
+
+.openMission{
+  width: 43px;
+  height: 18px;
+  font-size: 22px;
+  text-align: left;
+  color: #f88634;
+}
+.heading{
+  width: 553px;
+  height: 22px;
+  margin: 52px 226px 20px 0px;
+  font-family: NotoSans;
+  font-size: 22px;
+  text-align: left;
+  color: #414141;
+}
+.contentdetail1{
+  width: 1270px;
+  height: 181px;
+  margin: 40px 257px 48px 0px;
+  font-family: NotoSans;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  text-align: left;
+  color: #414141;
+}
+
+ul li{
+  margin-top: 1%;
+}

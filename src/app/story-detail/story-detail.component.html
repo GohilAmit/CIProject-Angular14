@@ -1,0 +1,74 @@
+<div>
+  <app-navbar></app-navbar>
+  <app-searchin-sorting></app-searchin-sorting>
+</div>
+<div class="container">
+  <div class="row" style="height: 650px;">
+    <div class="col-sm-6">
+      <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+    </div>
+    <div class="col-sm-6">
+        <div>
+          <img class="userImg" src="{{userImage}}" alt="NoImage" onerror="this.src='assets/NoUser.png'">
+          <div class="row" style="align-items: baseline;">
+            <div class="col-sm-8">
+              <p class="userName">{{userName}}</p>
+            </div>
+            <div class="col-sm-4" style="display: flex;justify-content: flex-end;">
+              <button class="viewButton"><i class="fa fa-eye"></i><span>12,000 Views</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="contentdetail">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <br/><br/>
+            Ut enim ad minim veniam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.
+            <br/><br/>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.
+        </div>
+        <div class="row" style="text-align: center;display: flex;justify-content: flex-end;">
+          <button class="btnReCommandToCoWorker"><span class="recommandtoCoWorker">
+            <span>
+                <img src="assets/Img/add1.png" alt="NoImage">&nbsp;
+            </span>Recommend to a Co-Worker</span></button>&nbsp;&nbsp;&nbsp;
+          <button class="btnOpenMission" type="submit"><span class="openMission">Apply Now &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+        </div>
+    </div>
+  </div>
+  <div class="row" style="height: 650px;">
+    <div class="col-sm-12">
+        <div class="heading">
+          Grow Tress - On the path to environment sustainbility
+        </div>
+        <p style="border: 1px solid lightgray;width: 100%;"></p>
+        <div class="contentdetail1">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+          ea commodo consequat.
+          <br/><br/>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <br/><br/>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+          ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+          anim id est laborum.
+
+          <div class="mt-5">
+            We use these technologies for a number of purposes, such as:
+            <ul>
+              <li>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain.</li>
+              <li>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+                excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</li>
+              <li>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized. </li>
+              <li>ut I must explain to you how all this mistaken idea of denouncing pleasure and praising pain.</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</li>
+            </ul>
+          </div>
+          <div class="mt-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div style="margin-top: 100px;">
+  <app-footer></app-footer>
+</div>

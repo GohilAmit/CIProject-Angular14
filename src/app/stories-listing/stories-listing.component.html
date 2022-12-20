@@ -1,0 +1,60 @@
+<div>
+  <app-navbar></app-navbar>
+  <app-searchin-sorting></app-searchin-sorting>
+</div>
+<div class="row">
+<div class="bg">
+  <img src="assets/Images/6.png" alt="noImage" class="">
+  <div class="container">
+    <div class="centered">
+      <p style="color: white;width: 100%;font-size: 17px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...</p>
+      <div style="width: 100%;text-align: center;">
+          <button class="btnStory btn btn-outline" (click)="RedirectToShareStory()" type="submit"><span class="Story">Share your Story &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+      </div>
+    </div>
+   </div>
+</div>
+</div>
+<div class="container mt-5">
+  <div class="row col-sm-12">
+    <ng-container *ngIf="(storyList | paginate:{itemsPerPage:itemPerPages,currentPage:page,totalItems:totalStory}) as result">
+    <div class="col-sm-4" *ngFor="let item of storyList">
+      <div class="card">
+        <div class="card-img-wrapper">
+        <img src="{{item.storyImage}}" alt="NoImage">
+        <div class="centeredheading">{{item.missionTitle}}</div>
+        <ul class="list-inline text-center member-icons animate">
+            <li class="list-inline-item">
+              <button class="btnViewDetail btn-btn-outline" routerLink="../storyDetail/{{item.id}}" type="submit"><span class="ViewDetail">View Detail &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+            </li>
+        </ul>
+      </div>
+        <div class="card-body">
+            <p class="heading">{{item.storyTitle}}
+            </p>
+            <p class="content">
+              {{item.storyDescription}}
+            </p>
+        </div>
+        <div class="row ">
+          <div class="col-sm-1 mx-2 my-1">
+            <img src="{{item.userImage}}" alt="No Image" style="border-radius: 50%;width: 50px;height: 50px;">
+          </div>
+          <div class="col-sm-8">
+            <p style="margin-top: 13px;margin-left: 15px;">{{item.userFullName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 text-center" *ngIf="result.length === 0">
+      <p class="text-danger" style="font-size:20px"><b>No Story Avilable</b></p>
+  </div>
+  <div class="mt-8 py-5" *ngIf="result.length != 0" style="display:flex;justify-content: center;">
+    <pagination-controls previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls>
+  </div>
+    </ng-container>
+  </div>
+</div>
+<div>
+  <app-footer></app-footer>
+</div>

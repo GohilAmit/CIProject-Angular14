@@ -1,0 +1,93 @@
+<div>
+  <app-navbar></app-navbar>
+  <hr style="margin: 0rem 0 !important"/>
+</div>
+
+<div class="container">
+  <p class='heading'>Share your story</p>
+  <form [formGroup]="shareStoryForm">
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="col-form-label">Select Mission</label>
+      <select class="form-select" [class.error]="shareStoryForm.controls['missionId'].dirty && shareStoryForm.hasError('required','missionId') " formControlName="missionId">
+        <option value="">Select your mission</option>
+        <option *ngFor="let item of missionTitleList" [value]="item.value">{{item.text}}</option>
+      </select>
+      <div class="text-danger" *ngIf="shareStoryForm.controls['missionId'].dirty && shareStoryForm.hasError('required','missionId')">
+          Please select mission
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <label class="col-form-label">My Story Title</label>
+      <input type="text" class="form-control" placeholder="Enter story title" [class.error]="shareStoryForm.controls['storyTitle'].dirty && shareStoryForm.hasError('required','storyTitle')" formControlName="storyTitle">
+      <div class="text-danger" *ngIf="shareStoryForm.controls['storyTitle'].dirty && shareStoryForm.hasError('required','storyTitle')">
+        Please Enter StoryTitle
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <label class="col-form-label">Date</label>
+       <input type="text" placeholder="Select date" formControlName="storyDate" [class.error]="shareStoryForm.controls['storyDate'].dirty && shareStoryForm.hasError('required','storyDate')"  class="form-control" bsDatepicker [bsConfig]="{containerClass:'theme-dark-blue',dateInputFormat:'DD-MM-YYYY',showWeekNumbers:false}">
+       <div class="text-danger" *ngIf="shareStoryForm.controls['storyDate'].dirty && shareStoryForm.hasError('required','storyDate')">
+        Please Select Story Date
+      </div>
+    </div>
+    <div class="col-sm-12 mt-2">
+        <label class="col-form-label">My Story</label>
+        <kendo-editor  style="height: 200px;" [resizable]="true" formControlName="storyDescription"  [class.error]="shareStoryForm.controls['storyDescription'].dirty && shareStoryForm.hasError('required','storyDescription')" >
+          <kendo-toolbar>
+              <kendo-toolbar-buttongroup>
+                  <kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
+                  <kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
+                  <kendo-toolbar-button kendoEditorStrikethroughButton></kendo-toolbar-button>
+              </kendo-toolbar-buttongroup>
+              <kendo-toolbar-buttongroup>
+                  <kendo-toolbar-button kendoEditorSubscriptButton></kendo-toolbar-button>
+                  <kendo-toolbar-button kendoEditorSuperscriptButton></kendo-toolbar-button>
+              </kendo-toolbar-buttongroup>
+          </kendo-toolbar>
+        </kendo-editor>
+        <div class="text-danger" *ngIf="shareStoryForm.controls['storyDescription'].dirty && shareStoryForm.hasError('required','storyDescription')">
+          Please Enter Story Description
+        </div>
+    </div>
+    <div class="col-sm-12 mt-2">
+      <label class="col-form-label">Enter Video URL</label>
+      <input type="text" class="form-control" placeholder="Enter your url" formControlName="videoUrl">
+    </div>
+    <div class="col-sm-12 mt-2">
+      <label class="col-form-label">Upload your photos</label>
+      <div class="dropZone">
+            <div class="text-wrapper">
+              <div style="text-align: center;">
+                  <img src="assets/Img/drag-and-drop.png" alt="No Image"  (click)="selectFile.click()" style="cursor: pointer;">
+                  <input type="file" class="form-control" formControlName="storyImage" [class.error]="shareStoryForm.controls['storyImage'].dirty && shareStoryForm.hasError('required','storyImage')"  #selectFile style="display: none;" multiple (change)="OnSelectedImage($event)">
+                </div>
+              </div>
+      </div>
+      <div class="text-danger" *ngIf="shareStoryForm.controls['storyImage'].dirty && shareStoryForm.hasError('required','storyImage')">
+        Please Select Image
+      </div>
+    </div>
+    <div class="row" style="text-align: center;">
+        <div class="col-sm-1 mt-3" style="margin-left: 20px;"  *ngFor="let item of imageListArray">
+          <span>
+            <img *ngIf="item.type=='img'" src="{{item.url}}" alt="NoImage" height="85px" width="110px">
+            <video *ngIf="item.type=='video'" height="85px" width="110px" controls>
+              <source src="{{item.url}}" type="video/mp4">
+            </video>
+            <span><button class="btn btn-outline-secondary" style="margin-top: -214%;margin-left: 99%;border: none;font-size: 20px;" (click)="OnRemoveImage(item)">x</button></span>
+          </span>
+
+        </div>
+  </div>
+    <div class="col-sm-12 mt-5 row">
+      <div class="col-sm-8">
+        <button class="btnCancel"><span class="btnCancelHeading" routerLink="../storiesListing">Cancel</span></button>
+      </div>
+      <div class="col-sm-4" style="display: flex;justify-content: flex-end;">
+        <button class="btnSave" (click)="OnSubmit()"><span class="SaveHeading">Submit</span></button>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>

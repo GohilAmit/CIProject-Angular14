@@ -1,0 +1,63 @@
+.heading{
+  width: 296px;
+  height: 41px;
+  margin: 55px 0px 39px 0px;
+  font-family: NotoSans;
+  font-size: 40px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #414141;
+}
+.btnCancel{
+  width: 151px;
+  height: 48px;
+  border-radius: 24px;
+  border: solid 2px #757575;
+  background-color: white;
+}
+.btnCancelHeading{
+  width: 43px;
+  height: 18px;
+  font-size: 22px;
+  text-align: left;
+  color: #757575;
+}
+
+.btnSave{
+  width: 151px;
+  height: 48px;
+  border-radius: 24px;
+  border: solid 2px #f88634;
+  background-color: white;
+}
+.SaveHeading{
+  width: 43px;
+  height: 18px;
+  font-size: 22px;
+  text-align: left;
+  color: #f88634;
+}
+.k-i-bold{
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.dropZone{
+  border: 1px dashed #aaa;
+  height: 110px;
+  display: table;
+  width: 100%;
+  background-color: #fff;
+}
+.text-wrapper{
+  display: table-cell;
+  vertical-align: middle;
+}
+.error{
+  border: 1px solid red;
+  color: red;
+}
