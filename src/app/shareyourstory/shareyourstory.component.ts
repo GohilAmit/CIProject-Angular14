@@ -45,15 +45,19 @@ export class ShareyourstoryComponent implements OnInit {
   ShareStoryFormValidate(){
     this.shareStoryForm = this.fb.group({
       missionId:[null,Validators.compose([Validators.required])],
-      storyTitle:[null,Validators.compose([Validators.required])],
+      storyTitle:[null,Validators.compose([Validators.required,Validators.maxLength(255)])],
       storyDate:[null,Validators.compose([Validators.required])],
-      storyDescription:[null,Validators.compose([Validators.required])],
+      storyDescription:[null,Validators.compose([Validators.required,Validators.maxLength(40000)])],
       videoUrl:[''],
       storyImage:[null,Validators.compose([Validators.required])]
     });
   }
-  OnSelectedImage(e:any){
+  OnSelectedImage(e:any){debugger;
       const files = e.target.files;
+      if(files.length > 20)
+      {
+        return this.toast.error({detail:"ERROR",summary:"Maximum 20 images can be added.",duration:3000});
+      }
       if(files)
       {
         this.formData = new FormData();
@@ -121,7 +125,6 @@ export class ShareyourstoryComponent implements OnInit {
         }
         else
         {
-          //this.toastr.error(data.message);
           this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
         }
       });

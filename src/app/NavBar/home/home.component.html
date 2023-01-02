@@ -13,37 +13,46 @@
     </div>
     <div class="col-sm-6 row" style="display: flex;justify-content: flex-end;">
       <div class="col-sm-3" style="margin-left:20%">
-        <select class="form-select" (change)="SortingData($event)">
+        <!-- <select class="form-select" (change)="SortingData($event)"> -->
+          <select class="form-select" (change)="SortingList($event)">
           <option value="">Sort by</option>
-          <option value="a-z">A-Z</option>
-          <option value="z-a">Z-A</option>
+          <option value="Newest">Newest</option>
+          <option value="Oldest">Oldest</option>
+          <option value="Lowest available seats">Lowest available seats</option>
+          <option value="Highest available seats">Highest available seats</option>
+          <option value="My favourites">My favourites</option>
+          <option value="Registration deadline">Registration deadline</option>
         </select>
       </div>
-      <div class="col-sm-1" style="color:#e8e8e8;margin-right:-4%;">
+      <div class="col-sm-1" style="color:#e8e8e8;margin-right:-2%;">
         <div class="Ellipse-574">
-          <div class="btn btn-icon btn-clean btn-lg mr-1" id="kt_quick_panel_toggle" style="padding-top: 0px;margin-left:-8px;margin-top: 4px;">
+          <div class="btn btn-icon btn-clean btn-lg mr-1" title="GridView" id="kt_quick_panel_toggle" style="padding-top: 0px;margin-left:-8px;margin-top: 4px;cursor: pointer;" (click)="OnChangeGrid()">
             <img src="assets/Img/grid.png">
         </div>
       </div>
       </div>
-      <div class="col-sm-2">
-
-        <img src="assets/Img/list.png" alt="NoImage" style="margin-left:40%;padding-top: 6px;">
+      <div class="col-sm-2" title="ListView">
+        <img src="assets/Img/list.png" alt="NoImage" style="margin-left:40%;padding-top: 6px;cursor: pointer;" (click)="OnChangeList()">
       </div>
     </div>
   </div>
   <input type="hidden" [(ngModel)]="searchParam">
-  <div class="row col-sm-12">
+  <div *ngIf="view =='grid'" class="row col-sm-12">
     <ng-container *ngIf="(missionList | search:searchParam | paginate:{itemsPerPage:missionPerPages,currentPage:page,totalItems:totalMission}) as result">
       <div class="col-sm-4  Rounded-Rectangle-2-copy" *ngFor="let item of result">
-        <div class="card-header" >
+        <div *ngIf="item.missionType=='Time'">
+          <div class="card-header" >
               <img src="{{item.missionImages}}" alt="NoImage" style="width: 420px;height:220px;" onerror="this.src='assets/NoImg.png'">
               <div class="bottom-left"><i class="fa fa-map-marker"></i>&nbsp;{{item.cityName}}</div>
-              <div class="bottom-rights"><i class="fa fa-heart-o 3-x"></i></div>
-              <div class="bottom-right"><i class="fa fa-user-plus 3-x"></i></div>
-              <div class="centered">{{item.misssionSkill}}</div>
-        </div>
-        <div class="card-body">
+              <div class="bottom-rights" (click)="MissionFavourite(item.id)"><span>
+                <img style="width: 30px;" src="{{item.missionFavouriteStatus=='0'? favImag : favImag1}}" alt="No"></span>
+              </div>
+              <div class="bottom-right" (click)="OpenShareOrInviteMissionModal(item.id)"><span><img style="width: 30px;" src="assets/Img/add1.png" alt="No"></span></div>
+              <div class="top-center" *ngIf="item.missionStatus == 'Closed'">CLOSED</div>
+              <div class="top-center" *ngIf="item.missionApplyStatus == 'Applied'">APPLIED</div>
+              <div class="centered">{{item.missionThemeName}}</div>
+          </div>
+          <div class="card-body">
             <p class="heading">{{item.missionTitle}}</p>
             <p class="content"> {{item.missionOrganisationDetail}}</p>
             <div class="row" style="margin: 14px;">
@@ -51,11 +60,15 @@
                 {{item.countryName}}
               </div>
               <div class="col-sm-5" style="display: flex;justify-content: flex-end;">
-                <span class="fa fa-star checked"></span>
+                <!-- <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>                  -->
+                  <!-- <form [formGroup]="form">
+                    <ngx-star-rating formControlName="rating" (click)="MissionRating(item.id)"></ngx-star-rating>
+                </form> -->
+                  <ngx-star-rating [(ngModel)]="rating3" id="rating{{item.id}}" (click)="MissionRating(item.id)"></ngx-star-rating>
               </div>
             </div>
             <div class="bordert">
@@ -73,22 +86,236 @@
                   <span style="font-size: 24px !important;">{{item.registrationDeadLine | date: 'dd/MM/yyyy'}}</span> <br/><span style="margin-left:40px">Deadline</span>
                 </div>
             </div>
+          </div>
+          <P style="border-top: 1px solid rgba(0, 0, 0, 0.06);width:100%"></P>
+          <div class="d-grid card-footer" style="display: flex;justify-content: center;">
+          <button class="btn-login" type="submit" *ngIf="item.missionApplyStatus =='Apply'" (click)="RedirectVolunteering(item.id)" [disabled]="item.missionStatus=='Closed'"><span class="Login">Apply &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+          <!-- <button class="btn-login" type="submit" *ngIf="item.missionApplyStatus =='Apply'" (click)="CheckUserLoginOrNot(item.id)" [disabled]="item.missionStatus=='Closed'"><span class="Login">Apply &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button> -->
+          <button class="btn-login" type="submit" *ngIf="item.missionApplyStatus ==='Applied'" (click)="RedirectVolunteering(item.id)"><span class="Login">View Details &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+          </div>
+           <p style="display: none;">{{item.countryId}}</p>
+        </div>
+        <div *ngIf="item.missionType=='Goal'">
+          <div class="card-header" >
+            <img src="{{item.missionImages}}" alt="NoImage" style="width: 420px;height:220px;" onerror="this.src='assets/NoImg.png'">
+            <div class="bottom-left"><i class="fa fa-map-marker"></i>&nbsp;{{item.cityName}}</div>
+            <div class="bottom-rights" (click)="MissionFavourite(item.id)"><span>
+              <img style="width: 30px;" src="{{item.missionFavouriteStatus=='0'? favImag : favImag1}}" alt="No"></span>
+            </div>
+            <div class="bottom-right" (click)="OpenShareOrInviteMissionModal(item.id)"><span><img style="width: 30px;" src="assets/Img/add1.png" alt="No"></span></div>
+            <div class="centered">{{item.missionThemeName}}</div>
+        </div>
+        <div class="card-body">
+          <p class="heading">{{item.missionTitle}}</p>
+          <p class="content"> {{item.missionOrganisationDetail}}</p>
+          <div class="row" style="margin: 14px;">
+            <div class="col-sm-7 contentdetail">
+              {{item.countryName}}
+            </div>
+            <div class="col-sm-5" style="display: flex;justify-content: flex-end;">
+              <!-- <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span> -->
+              <!-- <form [formGroup]="form">
+                <ngx-star-rating formControlName="rating" (click)="MissionRating(item.id)"></ngx-star-rating>
+            </form> -->
+            <ngx-star-rating [(ngModel)]="rating3" id="rating{{item.id}}" (click)="MissionRating(item.id)"></ngx-star-rating>
+            </div>
+          </div>
+          <div class="bordert">
+              <div class="text-center data py-3">
+                <p style="margin-top: -12px">From {{item.startDate | date: 'dd/MM/yyyy'}} until {{item.endDate | date: 'dd/MM/yyyy'}}</p>
+              </div>
+          </div>
+          <div class="SeatDeadLine row">
+              <div class="col-sm-6">
+                <i class="fa fa-user-circle-o fa-2x"></i>&nbsp;
+                <span style="font-size: 24px !important;">{{item.totalSheets}}</span> <br/><span style="margin-left:40px">Seats left</span>
+              </div>
+              <div class="col-sm-6">
+                <img src="assets/Img/achieved.png" alt="NoImage">&nbsp;
+                <span class="progress" style="margin-left:30px;margin-top: -17px;">
+                  <span  class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
+                </span>
+              <span style="margin-left:40px;">8000 achieved</span>
+              </div>
+          </div>
         </div>
         <P style="border-top: 1px solid rgba(0, 0, 0, 0.06);width:100%"></P>
         <div class="d-grid card-footer" style="display: flex;justify-content: center;">
-          <button class="btn-login" type="submit" (click)="CheckUserLoginOrNot(item.id)"><span class="Login">Apply &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
-        </div>
+          <button class="btn-login" type="submit" *ngIf="item.missionApplyStatus =='Apply'" (click)="RedirectVolunteering(item.id)" [disabled]="item.missionStatus=='Closed'"><span class="Login">Apply &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+          <!-- <button class="btn-login" type="submit" *ngIf="item.missionApplyStatus =='Apply'" (click)="CheckUserLoginOrNot(item.id)" [disabled]="item.missionStatus=='Closed'"><span class="Login">Apply &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button> -->
+          <button class="btn-login" type="submit" *ngIf="item.missionApplyStatus ==='Applied'" (click)="RedirectVolunteering(item.id)"><span class="Login">View Details &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+          </div>
          <p style="display: none;">{{item.countryId}}</p>
+        </div>
       </div>
       <div class="col-sm-12 text-center" *ngIf="result.length === 0">
-          <p class="text-danger" style="font-size:20px"><b>No Mission Avilable</b></p>
+          <p class="text-secondary" style="font-size:20px"><b>No mission Found</b></p>
       </div>
       <div class="mt-8 py-5" *ngIf="result.length != 0" style="display:flex;justify-content: center;">
         <pagination-controls previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls>
       </div>
     </ng-container>
   </div>
-
+  <div class="row mt-3" *ngIf="view=='list'">
+    <ng-container *ngIf="(missionList | search:searchParam | paginate:{itemsPerPage:listmissionPerPages,currentPage:page,totalItems:totalMission}) as result">
+    <div class="card ps-md-0 mt-4" *ngFor="let item of result" style="height: 220px;box-shadow: 0px 0px 0.75rem rgba(0,0,0,0.3);">
+      <div *ngIf="item.missionType=='Time'">
+          <div class="col-sm-12 row">
+      <div class="col-sm-3">
+        <img src="{{item.missionImages}}" alt="no img" width="100%" height="220px;" onerror="this.src='assets/NoImg.png'">
+        <div class="list-bottom-left"><i class="fa fa-map-marker"></i>&nbsp;{{item.cityName}}</div>
+        <div class="bottom-list-rights" (click)="MissionFavourite(item.id)"><span>
+          <img style="width: 30px;" src="{{item.missionFavouriteStatus=='0'? favImag : favImag1}}" alt="No"></span>
+        </div>
+        <div class="bottom-list-right" (click)="OpenShareOrInviteMissionModal(item.id)"><span><img style="width: 30px;" src="assets/Img/add1.png" alt="No"></span></div>
+        <div class="top-center" *ngIf="item.missionStatus == 'Closed'">Closed</div>
+        <div class="top-center" *ngIf="item.missionApplyStatus == 'Applied'">APPLIED</div>
+        <div class="list-centered">{{item.missionThemeName}}</div>
+      </div>
+      <div class="col-sm-9">
+        <div class="row col-sm-12">
+          <div class="col-sm-2">
+            <img src="assets/Img/pin1.png" alt="NoImage">&nbsp;{{item.cityName}}
+          </div>
+          <div class="col-sm-4">
+            <img src="assets/Img/web.png" alt="NoImage">&nbsp;<span>{{item.missionThemeName}}</span>
+          </div>
+          <div class="col-sm-4">
+            <img src="assets/Img/organization.png" alt="NoImage">&nbsp;<span>{{item.missionOrganisationName}}</span>
+          </div>
+          <div class="col-sm-2">
+            <div class="totalRating">
+              <!-- <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span> -->
+              <!-- <form [formGroup]="form">
+                <ngx-star-rating formControlName="rating" (click)="MissionRating(item.id)"></ngx-star-rating>
+            </form> -->
+            <ngx-star-rating [(ngModel)]="rating3" id="rating{{item.id}}" (click)="MissionRating(item.id)"></ngx-star-rating>
+          </div>
+          </div>
+        </div>
+        <div class="mt-3">
+            <div style="font-size: 23px;">
+              {{item.missionTitle}}
+            </div>
+            <div class="">
+              {{item.missionDescription}}
+            </div>
+        </div>
+        <div class="row col-sm-12 mt-3">
+          <div class="col-sm-2">
+            <img src="assets/Img/Seats-left.png" alt="NoImage">&nbsp;
+            <span>{{item.totalSheets}}</span> <br/><span style="margin-left:35px">Seats left</span>
+          </div>
+          <div class="col-sm-2">
+            <img src="assets/Img/calender.png" alt="NoImage">&nbsp;
+             {{item.registrationDeadLine | date: 'dd/MM/yyyy'}} <br/> <span style="margin-left:31px;">Deadline</span>
+          </div>
+          <div class="col-sm-3">
+            <img src="assets/Img/calender.png" alt="NoImage">&nbsp;
+            FROM {{item.startDate | date: 'dd/MM/yyyy'}} <br/> <span style="margin-left:31px;">Until {{item.endDate | date: 'dd/MM/yyyy'}}</span>
+          </div>
+          <div class="col-sm-3">
+            <img src="assets/Img/settings.png" alt="NoImage">&nbsp;Skills
+             <br/> <span style="margin-left:21px;word-break: break-all">{{item.missionSkillName}}</span>
+          </div>
+          <div class="col-sm-2">
+            <!-- <button class="btnViewDetail btn-btn-outline" [disabled]="item.missionStatus=='Closed'" type="submit"><span class="ViewDetail">Apply <i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button> -->
+            <button class="btnViewDetail btn-btn-outline" type="submit" *ngIf="item.missionApplyStatus =='Apply'" (click)="RedirectVolunteering(item.id)" [disabled]="item.missionStatus=='Closed'"><span class="ViewDetail">Apply &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+            <button class="btnViewDetail btn-btn-outline" type="submit" *ngIf="item.missionApplyStatus ==='Applied'" (click)="RedirectVolunteering(item.id)"><span class="ViewDetail">>View Details &nbsp; <i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+          </div>
+        </div>
+      </div>
+          </div>
+      </div>
+      <div *ngIf="item.missionType=='Goal'">
+        <div class="col-sm-12 row">
+          <div class="col-sm-3">
+            <img src="{{item.missionImages}}" alt="no img" width="100%" height="190px;" onerror="this.src='assets/NoImg.png'">
+            <div class="list-bottom-left"><i class="fa fa-map-marker"></i>&nbsp;{{item.cityName}}</div>
+            <div class="bottom-list-rights" (click)="MissionFavourite(item.id)"><span>
+              <img style="width: 30px;" src="{{item.missionFavouriteStatus=='0'? favImag : favImag1}}" alt="No"></span>
+            </div>
+            <div class="bottom-list-right" (click)="OpenShareOrInviteMissionModal(item.id)"><span><img style="width: 30px;" src="assets/Img/add1.png" alt="No"></span></div>
+            <div class="list-centered">{{item.missionThemeName}}</div>
+          </div>
+          <div class="col-sm-9">
+            <div class="row col-sm-12">
+              <div class="col-sm-2">
+                <img src="assets/Img/pin1.png" alt="NoImage">&nbsp;{{item.cityName}}
+              </div>
+              <div class="col-sm-4">
+                <img src="assets/Img/web.png" alt="NoImage">&nbsp;<span style="word-break: normal;">{{item.missionThemeName}}</span>
+              </div>
+              <div class="col-sm-4">
+                <img src="assets/Img/organization.png" alt="NoImage">&nbsp;<span style="word-break: normal;">{{item.missionOrganisationName}}</span>
+              </div>
+              <div class="col-sm-2">
+                <div class="totalRating">
+                  <!-- <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span> -->
+                  <!-- <form [formGroup]="form">
+                    <ngx-star-rating formControlName="rating" (click)="MissionRating(item.id)"></ngx-star-rating>
+                </form> -->
+                <ngx-star-rating [(ngModel)]="rating3" id="rating{{item.id}}" (click)="MissionRating(item.id)"></ngx-star-rating>
+              </div>
+              </div>
+            </div>
+            <div class="mt-3">
+                <div style="font-size: 23px;">
+                  {{item.missionTitle}}
+                </div>
+                <div class="">
+                  {{item.missionDescription}}
+                </div>
+            </div>
+            <div class="row col-sm-12 mt-3">
+              <div class="col-sm-2">
+                <img src="assets/Img/Seats-left.png" alt="NoImage">&nbsp;
+                <span>{{item.totalSheets}}</span> <br/><span style="margin-left:35px">Seats left</span>
+              </div>
+              <div class="col-sm-2">
+                <img src="assets/Img/achieved.png" alt="NoImage">&nbsp;
+                  <span class="progress" style="margin-left:40px;margin-top: -17px;">
+                    <span  class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
+                  </span>
+                <span style="margin-left:10px;">8000 achieved</span>
+              </div>
+              <div class="col-sm-3">
+                <img src="assets/Img/calender.png" alt="NoImage">&nbsp;
+                FROM {{item.startDate | date: 'dd/MM/yyyy'}} <br/> <span style="margin-left:31px;">Until {{item.endDate | date: 'dd/MM/yyyy'}}</span>
+              </div>
+              <div class="col-sm-3">
+                <img src="assets/Img/settings.png" alt="NoImage">&nbsp;Skills
+                 <br/> <span style="margin-left:21px;word-break: break-all">{{item.missionSkillName}}</span>
+              </div>
+              <div class="col-sm-2">
+                <button class="btnViewDetail btn-btn-outline" type="submit" *ngIf="item.missionApplyStatus =='Apply'" (click)="RedirectVolunteering(item.id)" [disabled]="item.missionStatus=='Closed'"><span class="ViewDetail">Apply &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+                <button class="btnViewDetail btn-btn-outline" type="submit" *ngIf="item.missionApplyStatus ==='Applied'" (click)="RedirectVolunteering(item.id)"><span class="ViewDetail">>View Details &nbsp; <i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+              </div>
+            </div>
+          </div>
+              </div>
+      </div>
+    </div>
+    <div class="col-sm-12 text-center" *ngIf="result.length === 0">
+      <p class="text-secondary" style="font-size:20px"><b>No mission Found</b></p>
+    </div>
+    <div class="mt-8 py-5" *ngIf="result.length != 0" style="display:flex;justify-content: center;">
+      <pagination-controls previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </ng-container>
+  </div>
 </div>
 
 
@@ -130,6 +357,43 @@
       <div class="modal-footer">
         <button type="button" class="btn-Close" data-dismiss="modal" (click)="CloseMissionApplyModal()"><span class="Close"> Cancel</span> </button>
         <button type="submit" class="btnApplyMission" (click)="ApplyMission()"><span class="ApplyMission">Submit</span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" style="margin-top: 10%;"  id="shareinviteMissionModel"  tabindex="-1" role="dialog" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contactUsModalLabel">Share Or Invite Mission</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="CloseShareOrInviteMissionModal()">
+        </button>
+      </div>
+
+      <div class="modal-body">
+            <div class="table" style="width: 100%;">
+
+              <thead>
+                <tr>
+                  <th style="width: 150px;">Action</th>
+                  <th style="width: 400px;">UserName</th>
+                  <th style="width: 530px;">Email</th>
+                </tr>
+              </thead>
+              <tbody>
+               <tr *ngFor="let item of userList">
+                    <td><input type="checkbox" style="width: 20px;height: 20px;" [(ngModel)]="item.isSelected" (change)="GetUserCheckedList(item.isSelected,item)" id="chk_{{item.id}}"></td>
+                    <td>{{item.userFullName}}</td>
+                    <td>{{item.emailAddress}}</td>
+                  </tr>
+              </tbody>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-Close" data-dismiss="modal" (click)="CloseShareOrInviteMissionModal()"><span class="Close"> Cancel</span> </button>
+        <button type="submit" class="btnApplyMission" (click)="SendInviteMissionMail()"><span class="ApplyMission">Send Invite</span></button>
       </div>
 
     </div>

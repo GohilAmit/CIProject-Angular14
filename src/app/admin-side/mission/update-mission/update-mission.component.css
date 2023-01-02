@@ -7,6 +7,8 @@
   overflow:hidden;
 }
 .container-fluid{
+  margin: 0;
+  padding: 0;
   display: flex;
 }
 
@@ -21,10 +23,10 @@
   line-height: 25px;
   text-align: justify;
 }
-.container-fluid .content .info div{
-  /* margin-bottom: 15px; */
-}
 
+.skills{
+  overflow-y: auto;
+}
 .card-header{
   font-size: 22px;
   font-weight: 400;
@@ -39,10 +41,7 @@
   text-align: left;
   color: #414141;
 }
-.form-control, .form-select{
-  /* height: 38px;
-  padding-left: 7px; */
-}
+
 .btnCancel{
   width: 119px;
   height: 48px;
@@ -76,7 +75,7 @@
 }
 .dropZone{
   border: 1px dashed #aaa;
-  height: 110px;
+  height: 65px;
   display: table;
   width: 100%;
   background-color: #fff;
@@ -84,4 +83,14 @@
 .text-wrapper{
   display: table-cell;
   vertical-align: middle;
+}
+.btnremove{
+  margin-top: -203%;
+  margin-left: 70%;
+   border: none;
+   font-size: 20px;
+   color:black
+}
+.btnremove:hover{
+  background-color: #aaa;
 }

@@ -29,6 +29,8 @@ import { DatePipe } from '@angular/common';
 import { NgToastModule } from 'ng-angular-popup';
 import { TokenInterceptor } from '../Interceptors/token.interceptor';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { AddMissionThemeComponent } from './missiontheme/add-mission-theme/add-mission-theme.component';
+import { AddMissionSkillComponent } from './missionskill/add-mission-skill/add-mission-skill.component';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     FilterPipe,
     BannerManagementComponent,
     AddMissionComponent,
-    UpdateMissionComponent
+    UpdateMissionComponent,
+    AddMissionThemeComponent,
+    AddMissionSkillComponent
 
   ],
   imports: [

@@ -19,14 +19,23 @@ export class Mission{
   cityName:string='';
   startDate:any;
   endDate:any;
-  totalSheets:number=0;
+  missionType:any;
+  totalSheets:any;
   registrationDeadLine:any;
-  missionTheme:string='';
-  missionSkill:string='';
-  missionImages:string='';
+  missionThemeId:any;
+  missionSkillId:any;
+  missionImages:any;
   missionDocuments:any;
   missionAvilability:string='';
-
+  misssionVideoUrl:string='';
+  missionThemeName:string='';
+  missionSkillName:string='';
+  missionStatus:string='';
+  missionApplyStatus:string='';
+  missionDateStatus:any;
+  missionDeadLineStatus:any;
+  missionFavouriteStatus:any;
+  rating:any;
 }
 
 

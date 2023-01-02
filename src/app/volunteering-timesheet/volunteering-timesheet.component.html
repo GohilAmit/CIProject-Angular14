@@ -11,7 +11,7 @@
               Volunteering Hours
               <span style="float: right;margin-right: 7%;">
                 <button class="btn btn-outline" (click)="OpenVolunteeringHoursModal()">
-                  <i class="fa fa-plus"></i>Add New
+                  <i class="fa fa-plus"></i>Add
                 </button>
               </span>
             </p>
@@ -55,7 +55,7 @@
         <p class="card-title">Volunteering Goals
           <span style="float: right;margin-right: 7%;">
             <button class="btn btn-outline" (click)="OpenVolunteeringGoalsModal()">
-              <i class="fa fa-plus"></i>Add New
+              <i class="fa fa-plus"></i>Add
             </button>
           </span>
         </p>
@@ -126,7 +126,7 @@
           <div class="row mt-3">
             <div class="form-group col-sm-6">
               <label class="col-form-label">Hours</label>
-              <input type="text" class="form-control" placeholder="Enter Spent Hours" [class.error]="volunteeringHoursForm.controls['hours'].dirty && volunteeringHoursForm.hasError('required','hours')" formControlName="hours">
+              <input type="text" formControlName="hours" class="form-control" placeholder="Enter Spent Hours" [class.error]="volunteeringHoursForm.controls['hours'].dirty && volunteeringHoursForm.hasError('required','hours')" >
               <div class="text-danger" *ngIf="volunteeringHoursForm.controls['hours'].dirty && volunteeringHoursForm.hasError('required','hours')">
                 Hours is required
               </div>

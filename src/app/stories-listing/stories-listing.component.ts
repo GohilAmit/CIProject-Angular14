@@ -24,13 +24,19 @@ export class StoriesListingComponent implements OnInit {
       var tokenDetail = this.adminservice.decodedToken();
       if(tokenDetail == null || tokenDetail.userType != 'user')
       {
-          this.router.navigate(['login']);
+        this.router.navigate(['']);
+      }
+      else if(tokenDetail.userImage == "")
+      {
+        this.toast.warning({detail:"Warning",summary:"First Fillup User Profile Detail",duration:3000});
+        this.router.navigate([`userProfile/${tokenDetail.userId}`])
       }
       else
       {
         this.router.navigate(['shareyourstory']);
       }
   }
+
   GetStoryList(){
     this.service.StoryList().subscribe((data:any)=>{
         if(data.result == 1)

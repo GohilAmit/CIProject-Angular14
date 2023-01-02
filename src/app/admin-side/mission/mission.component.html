@@ -31,7 +31,7 @@
               <ng-container *ngIf="(missionList | filter:searchText | paginate :{ itemsPerPage: itemsPerPages, currentPage: page })as result">
                 <tr *ngFor="let item of result">
                  <td>{{item.missionTitle}}</td>
-                 <td style="text-align: right;">{{item.missionSkill}}</td>
+                 <td style="text-align: right;">{{item.missionType}}</td>
                  <td style="text-align: right;">{{item.startDate | date: 'dd/MM/yyyy'}}</td>
                  <td style="text-align: right;">{{item.endDate | date: 'dd/MM/yyyy'}}</td>
                  <td style="text-align: right;">

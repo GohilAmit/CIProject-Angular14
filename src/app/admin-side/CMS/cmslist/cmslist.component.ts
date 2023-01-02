@@ -40,7 +40,6 @@ export class CMSListComponent implements OnInit {
           }
           else
           {
-            // this.toastr.error(result.message);
             this.toast.error({detail:"ERROR",summary:result.message,duration:3000});
           }
       });
@@ -50,14 +49,12 @@ export class CMSListComponent implements OnInit {
     this.service.DeleteCMS(id).subscribe((data:any)=>{
         if(data.result == 1)
         {
-          // this.toastr.success(data.data);
           this.toast.success({detail:"SUCCESS",summary:data.data,duration:3000});
           this.deleteModal.hide();
           window.location.reload();
         }
         else
         {
-          // this.toastr.error(data.message);
           this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
         }
       },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}));

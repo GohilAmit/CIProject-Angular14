@@ -40,6 +40,7 @@ export class MissionComponent implements OnInit {
               missionOrganisationDetail:x.missionOrganisationDetail,
               countryId:x.countryId,
               cityId:x.cityId,
+              missionType:x.missionType,
               startDate:x.startDate,
               endDate:x.endDate,
               totalSheets:x.totalSheets,

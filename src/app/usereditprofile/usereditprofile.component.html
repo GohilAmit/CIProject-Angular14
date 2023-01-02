@@ -22,11 +22,13 @@
             <label class="col-form-label">Name<span class="text-success">*</span></label>
             <input type="text" class="form-control" placeholder="Enter your name" formControlName="name">
             <span class="text-danger" *ngIf="userProfileForm.controls['name'].dirty && userProfileForm.hasError('required','name')">Please Enter Name</span>
+            <span class="text-danger" *ngIf="userProfileForm.hasError('maxLength','name')">Maximum 16 characters are allowed</span>
           </div>
           <div class="col-sm-6">
             <label class="col-form-label">Surname<span class="text-success">*</span></label>
             <input type="text" class="form-control" placeholder="Enter your surname" formControlName="surname">
             <span class="text-danger" *ngIf="userProfileForm.controls['surname'].dirty && userProfileForm.hasError('required','surname')">Please Enter SurName</span>
+            <span class="text-danger" *ngIf="userProfileForm.hasError('maxLength','surname')">Maximum 16 characters are allowed</span>
           </div>
       </div>
       <div class="form-group row mt-1">
@@ -43,10 +45,12 @@
         <div class="col-sm-6">
           <label class="col-form-label">Title</label>
           <input type="text" class="form-control" placeholder="Enter your title" formControlName="title">
+          <span class="text-danger" *ngIf="userProfileForm.hasError('maxLength','title')">Maximum 255 characters are allowed</span>
         </div>
         <div class="col-sm-6">
           <label class="col-form-label">Department</label>
           <input type="text" class="form-control" placeholder="Enter your department" formControlName="department">
+          <span class="text-danger" *ngIf="userProfileForm.hasError('maxLength','department')">Maximum 16 characters are allowed</span>
         </div>
       </div>
       <div class="form-group row mt-1">
@@ -99,6 +103,10 @@
                 <option value="Period Availability">Period Availability</option>
                 <option value="Standards Availability">Standards Availability</option>
                 <option value="Service Availability">Service Availability</option>
+                <option value="Daily">Daily</option>
+                <option value="Weekend">Weekend</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
               </select>
             </div>
             <div class="col-sm-6">
@@ -117,13 +125,6 @@
             <div class="col-sm-12">
               <select class="form-select" multiple="multiple" formControlName="mySkills">
                 <option *ngFor="let item of userSkillList" value="{{item}}">{{item}}</option>
-                <!-- <option value="anthropology">Anthropology</option>
-                <option value="archeology">Archeology</option>
-                <option value="astronomy">Astronomy</option>
-                <option value="computerScience">Computer Science</option>
-                <option value="environmentScience">Environment Science</option>
-                <option value="history">History</option>
-                <option value="environment">Environment</option> -->
               </select>
               <span class="text-danger" *ngIf="userProfileForm.controls['mySkills'].dirty && userProfileForm.hasError('required','mySkills')">Please Select Skill</span>
             </div>

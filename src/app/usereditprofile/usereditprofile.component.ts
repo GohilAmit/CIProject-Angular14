@@ -206,12 +206,12 @@ export class UsereditprofileComponent implements OnInit {
   UserFormCheckValid(){
     this.userProfileForm = this.fb.group({
       id:[0],
-      name:[this.firstName,Validators.compose([Validators.required])],
-      surname:[this.lastName,Validators.compose([Validators.required])],
+      name:[this.firstName,Validators.compose([Validators.required,Validators.maxLength(16)])],
+      surname:[this.lastName,Validators.compose([Validators.required,Validators.maxLength(16)])],
       employeeId:[''],
       manager:[''],
-      title:[''],
-      department:[''],
+      title:['',Validators.compose([Validators.maxLength(255)])],
+      department:['',Validators.compose([Validators.maxLength(16)])],
       myProfile:[null,Validators.compose([Validators.required])],
       whyIVolunteer:[''],
       countryId:[null,Validators.compose([Validators.required])],
@@ -370,14 +370,14 @@ export class UsereditprofileComponent implements OnInit {
           setTimeout(() => {
             this.CloseChangePasswordModal();
             this.loginService.LoggedOut();
-            this.router.navigate(['login']);
+            this.router.navigate(['']);
           }, 1000);
         }
         else
         {
-          this.toastr.error(data.message);
+          this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
         }
-      },err=>this.toastr.error(err.message))
+      },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}));
     }
 
   }

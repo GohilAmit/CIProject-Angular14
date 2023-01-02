@@ -17,10 +17,15 @@ export class ClientService {
   imageUrl:string='http://localhost:56577';
 
   //HomePage
-  MissionList():Observable<Mission[]>{
-    return this.http.get<Mission[]>(`${this.apiUrl}/ClientMission/ClientSideMissionList`);
+  MissionList(userId:any):Observable<Mission[]>{
+    return this.http.get<Mission[]>(`${this.apiUrl}/ClientMission/ClientSideMissionList/${userId}`);
   }
-
+  MissionClientList(data:any){
+    return this.http.post(`${this.apiUrl}/ClientMission/MissionClientList`,data);
+  }
+  MissionDetailByMissionId(data:any){
+    return this.http.post(`${this.apiUrl}/ClientMission/MissionDetailByMissionId/`,data);
+  }
   ApplyMission(data:any){debugger;
      return this.http.post(`${this.apiUrl}/ClientMission/ApplyMission`,data);
   }
@@ -115,5 +120,42 @@ export class ClientService {
   }
   DeleteVolunteeringGoals(id:any){
     return this.http.delete(`${this.apiUrl}/VolunteeringTimesheet/DeleteVolunteeringGoals/${id}`);
+  }
+
+
+  //Mission Comment
+  AddMissionComment(data:any)
+  {
+    return this.http.post(`${this.apiUrl}/ClientMission/AddMissionComment`,data);
+  }
+  MissionCommentListByMissionId(missionId:any):Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/ClientMission/MissionCommentListByMissionId/${missionId}`);
+  }
+
+
+  //Mission Favourite
+  AddMissionFavourite(data:any){
+      return this.http.post(`${this.apiUrl}/ClientMission/AddMissionFavourite`,data);
+  }
+  RemoveMissionFavourite(data:any){
+    return this.http.post(`${this.apiUrl}/ClientMission/RemoveMissionFavourite`,data);
+  }
+
+  //Mission Rating
+  MissionRating(data:any){
+    return this.http.post(`${this.apiUrl}/ClientMission/MissionRating`,data);
+  }
+
+  //Mission Recent VolunteerList
+  RecentVolunteerList(data:any){
+    return this.http.post(`${this.apiUrl}/ClientMission/RecentVolunteerList`,data);
+  }
+
+  //ShareOrInviteMission
+  GetUserList(userId:any):Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/ClientMission/GetUserList/${userId}`);
+  }
+  SendInviteMissionMail(data:any){debugger;
+    return this.http.post(`${this.apiUrl}/ClientMission/SendInviteMissionMail`,data);
   }
 }

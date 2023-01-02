@@ -43,9 +43,9 @@ export class ForgotPasswordComponent implements OnInit {
             else
             {
               // this.toastr.success('Reset password mail send successfully. please check your emailtoreset your password');
-              this.toast.success({summary:'Password reset link is send to your registred email, Kindly check your mail box',duration:3000});
+              this.toast.success({detail:"SUCCESS",summary:'Password reset link is send to your registred email, Kindly check your mail box',duration:3000});
               setTimeout(()=>{
-                this.router.navigate(['login']);
+                this.router.navigate(['']);
               },2000);
             }
           });

@@ -2,7 +2,7 @@
   width: 48px;
   height: 48px;
   margin-top: -5px;
-  background-color: #e8e8e8;
+
   border-radius: 50%;
 }
 
@@ -59,9 +59,9 @@
   right: 16px;
   width: 48px;
   height: 40px;
-  margin: 60px 0 11px 55px;
+  margin: 60px 0 20px 55px;
   padding: 9px 4px 3px;
-  opacity: 0.4;
+  opacity: 0.5;
   border-radius: 55%;
   background-color: black;
 }
@@ -76,7 +76,8 @@
   color: #414141;
   font-family: NotoSans;
   left: 50%;
-  width: 130px;
+  width: fit-content;
+  padding: 0px 10px 0px 10px;
   transform: translate(-50%, -50%);
 }
 
@@ -135,7 +136,7 @@
   color: #414141;
 }
 .btn-login {
-  width: 151px;
+  width: 251px;
   height: 48px;
   border-radius: 24px;
   border: solid 2px #f88634;
@@ -165,7 +166,6 @@
   border: 1px solid rgba(0, 0, 0, 0.06);
   padding: 0 10px;
   border-radius: 17.5px;
-
   height:1px
 }
 .modal-header {
@@ -236,4 +236,162 @@
 }
 #applyMissionModel{
   margin-top: 15%;
+}
+
+.top-center{
+  position: absolute;
+  top: 8px;
+  left: 0px;
+  width: fit-content;
+  color: white;
+  height: 35px;
+  margin: 0 0 6px;
+  padding: 5px 13px 7px;
+  border-radius: 10px 40px 40px 10px;
+  background-color: green;
+}
+.list-bottom-left {
+  position: absolute;
+  top: 8px;
+  left: 200px;
+  width: fit-content;
+  color: white;
+  height: 35px;
+  margin: 0 0 6px;
+  padding: 5px 13px 7px;
+  opacity: 0.4;
+  border-radius: 17.5px;
+  background-color: black;
+}
+.list-bottom-right{
+  position: absolute;
+  bottom: 7px;
+  left: 190px;
+  color: white;
+  width: 48px;
+  height: 40px;
+  margin: 60px 0 25px 55px;
+  padding: 9px 4px 3px;
+  opacity: 0.4;
+  border-radius: 55%;
+  background-color: black;
+}
+.fa-heart-o, .fa-user-plus{
+  font-size: 24px;
+}
+.list-bottom-rights{
+  position: absolute;
+  bottom: 68px;
+  left: 190px;
+  color: white;
+  width: 48px;
+  height: 40px;
+  margin: 60px 0 11px 55px;
+  padding: 9px 4px 3px;
+  opacity: 0.4;
+  border-radius: 55%;
+  background-color: black;
+}
+.list-centered {
+  position: absolute;
+  top: 98%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: white;
+  font-size: 17px;
+  text-align: center;
+  color: #414141;
+  font-family: NotoSans;
+  left: 11%;
+  width: fit-content;
+  max-width: 260px;
+  padding: 0px 10px 0px 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+}
+.totalRating{
+  float: right;
+}
+.btnViewDetail {
+  width: 164px;
+  height: 48px;
+  border-radius: 24px;
+  border: solid 2px #f88634;
+  background-color: white;
+  float: left;
+}
+
+.ViewDetail{
+  width: 43px;
+  height: 18px;
+  font-size: 22px;
+  text-align: left;
+  color: #f88634;
+}
+
+
+::ng-deep label.star {
+  padding: 0 4px !important;
+  font-size: 18px !important;
+  color: #ddd !important;
+}
+::ng-deep label.star::before {
+  content: "\f005" !important;
+}
+::ng-deep label.star:hover {
+  transform: rotate(0deg) scale(1.2) !important;
+}
+.bottom-list-right{
+  position: absolute;
+  bottom: 8px;
+  left: 194px;
+  width: 48px;
+  height: 40px;
+  margin: 60px 0 22px 55px;
+  padding: 9px 9px 3px;
+  opacity: 0.4;
+  border-radius: 55%;
+  background-color: black;
+}
+.bottom-list-rights{
+  position: absolute;
+  bottom: 52px;
+  left: 194px;
+  width: 48px;
+  height: 40px;
+  margin: 60px 0 33px 55px;
+  padding: 9px 9px 3px;
+  opacity: 0.5;
+  border-radius: 55%;
+  background-color: black;
+}
+
+
+/* ::ng-deep input.star:checked ~ ::ng-deep label.star:before {
+  content: "\f005" !important;
+  color: #fd4 !important;
+  transition: all .25s !important;
+} */
+.table {
+  overflow-y: auto;
+  height: 300px !important;
+  max-height: 300px !important;
+  border: none;
+  width: 100%;
+}
+.table thead th {
+  position: sticky;
+  top: 0;
+  border: none;
+  background: #d9d9d9;
+}
+
+th,
+td {
+  border: none;
+  text-align: center;
 }

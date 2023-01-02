@@ -1,4 +1,5 @@
 import { ANALYZE_FOR_ENTRY_COMPONENTS, Component, OnInit } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/service/common.service';
 
@@ -9,7 +10,7 @@ import { CommonService } from 'src/app/service/common.service';
 })
 export class SearchinSortingComponent implements OnInit {
 
-  constructor(private service:CommonService,private toastr:ToastrService) { }
+  constructor(private service:CommonService,private toast:NgToastService) { }
   missionCountryList:any[]=[];
   missionCityList:any[]=[];
   missionThemeList:any[]=[];
@@ -28,7 +29,7 @@ export class SearchinSortingComponent implements OnInit {
         this.missionCountryList = data.data;
       }
       else{
-          this.toastr.error(data.message);
+        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
     });
   }
@@ -40,7 +41,7 @@ export class SearchinSortingComponent implements OnInit {
       }
       else
       {
-        this.toastr.error(data.message);
+        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
     });
   }
@@ -52,7 +53,7 @@ export class SearchinSortingComponent implements OnInit {
       }
       else
       {
-        this.toastr.error(data.message);
+        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
     });
   }
@@ -63,7 +64,7 @@ export class SearchinSortingComponent implements OnInit {
         }
         else
         {
-            this.toastr.error(data.message);
+          this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
         }
     });
   }

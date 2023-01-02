@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                   <label class="col-form-label">Password</label>
-                  <input type="password" class="form-control" formControlName="password" placeholder="**********">
+                  <input type="password" onpaste="return false" class="form-control" formControlName="password" placeholder="**********">
                   <span class="text-danger" *ngIf="password.invalid && (password.touched || formValid)">
                     Please Enter Password
                   </span>

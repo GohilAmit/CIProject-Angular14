@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
     }
   }
   RedirectLogin(){
-      this.router.navigate(['login']);
+    this.router.navigate(['']);
   }
   RedirectRegister(){
     this.router.navigate(['register']);
@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
   LoggedOut(){
     this.service.LoggedOut();
     this.isLogin = false;
-    this.router.navigate(['/']);
+    this.router.navigate(['']);
 }
 }
 

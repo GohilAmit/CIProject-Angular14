@@ -68,7 +68,7 @@ export class ResetPasswordComponent implements OnInit,AfterViewInit {
             //this.toastr.success("Password Changed Successfully.");
             this.toast.success({detail:"SUCCESS",summary:"Password Changed Successfully.",duration:3000});
             setTimeout(()=>{
-                this.router.navigate(['login']);
+              this.router.navigate(['']);
             },2000);
           }
         });

@@ -18,14 +18,14 @@
 <div class="container mt-5">
   <div class="row col-sm-12">
     <ng-container *ngIf="(storyList | paginate:{itemsPerPage:itemPerPages,currentPage:page,totalItems:totalStory}) as result">
-    <div class="col-sm-4" *ngFor="let item of storyList">
+    <div class="col-sm-4" *ngFor="let item of result">
       <div class="card">
         <div class="card-img-wrapper">
         <img src="{{item.storyImage}}" alt="NoImage">
         <div class="centeredheading">{{item.missionTitle}}</div>
         <ul class="list-inline text-center member-icons animate">
             <li class="list-inline-item">
-              <button class="btnViewDetail btn-btn-outline" routerLink="../storyDetail/{{item.id}}" type="submit"><span class="ViewDetail">View Detail &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+              <button class="btnViewDetail btn-btn-outline"  routerLink="../storyDetail/{{item.id}}" type="submit"><span class="ViewDetail">View Detail &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
             </li>
         </ul>
       </div>

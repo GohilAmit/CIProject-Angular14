@@ -20,16 +20,21 @@ export class UpdateMissionComponent implements OnInit {
   formValid:boolean;
   countryList:any[]=[];
   cityList:any[]=[];
-  imageUrl:any = '';
+  imageUrl:any[] = [];
   missionImage : any='';
   isFileUpload = false;
+  isDocUpload = false;
+  missionDocName:any;
+  missionDocText :any;
   formData = new FormData();
-  missionThemes = ["A Church in Every Nation","A Clear and Compelling Call","A Heart for the Harvest","A Time for True Freedom","A Vision of the Harvest","A Waiting World - a Willing Church?",
-  "Across the Street - Across the Sea","An Open Door","Approved to Proclaim (1 Thes. 2:4)","Are We There Yet?","Arise, Go, Preach (Jonah 3:2)","Around the Community, Around the World"]
-  missionSkills = ["Gym Leader","Elite Four","Champion","Main Character","Rival","Villain","Trial Giver","Battle Facility Foe","Scarf","Seasonal Outfit","Special Costume","Sunglasses","Sygna Suit"]
+  formDoc = new FormData();
+  missionThemeList:any[]=[];
+  missionSkillList:any[]=[];
+  typeFlag:boolean = false;
+  imageListArray : any=[];
   missionAvilabilitys = ["missionAvilability1","missionAvilability2","missionAvilability3","missionAvilability4","missionAvilability5"]
-  constructor(public fb:FormBuilder,public service:AdminsideServiceService,public toastr:ToastrService,public router:Router,public activateRoute:ActivatedRoute,public datePipe:DatePipe
-    ,private toast:NgToastService) {
+  constructor(public fb:FormBuilder,public service:AdminsideServiceService,public toastr:ToastrService,public router:Router,public activateRoute:ActivatedRoute,
+    public datePipe:DatePipe,private toast:NgToastService) {
     this.missionId = this.activateRoute.snapshot.paramMap.get("Id");
     if(this.missionId != 0)
     {
@@ -39,6 +44,9 @@ export class UpdateMissionComponent implements OnInit {
 
   ngOnInit(): void {
     this.CountryList();
+    this.GetMissionSkillList();
+    this.GetMissionThemeList();
+    this.missionDocText = '';
   }
 
   CountryList(){
@@ -66,7 +74,38 @@ export class UpdateMissionComponent implements OnInit {
       }
     });
   }
-
+  HideOrShow(e:any)
+  {
+      if(e.target.value == "Time")
+      {
+        this.typeFlag = true;
+      }
+      else{
+      this.typeFlag = false;
+    }
+  }
+  GetMissionSkillList(){
+      this.service.GetMissionSkillList().subscribe((data:any)=>{
+        if(data.result==1)
+        {
+          this.missionSkillList = data.data;
+        }
+        else{
+          this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
+        }
+      },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}))
+  }
+  GetMissionThemeList(){
+    this.service.GetMissionThemeList().subscribe((data:any)=>{
+      if(data.result==1)
+      {
+        this.missionThemeList = data.data;
+      }
+      else{
+        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
+      }
+    },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}))
+  }
   FetchDetail(id:any)
   {
       this.service.MissionDetailById(id).subscribe((data:any)=>{
@@ -87,19 +126,34 @@ export class UpdateMissionComponent implements OnInit {
               cityId:[this.editData.cityId,Validators.compose([Validators.required])],
               startDate:[this.editData.startDate,Validators.compose([Validators.required])],
               endDate:[this.editData.endDate,Validators.compose([Validators.required])],
+              missionType:[this.editData.missionType,Validators.compose([Validators.required])],
               totalSheets:[this.editData.totalSheets,Validators.compose([Validators.required])],
               registrationDeadLine:[this.editData.registrationDeadLine,Validators.compose([Validators.required])],
-              missionTheme:[this.editData.missionTheme,Validators.compose([Validators.required])],
-              missionSkill:[this.editData.missionSkill,Validators.compose([Validators.required])],
+              missionThemeId:[this.editData.missionThemeId,Validators.compose([Validators.required])],
+              missionSkillId:[this.editData.missionSkillId.split(','),Validators.compose([Validators.required])],
               missionImages:[''],
-              missionDocuments:[null],
+              missionDocuments:[''],
+              missionVideoUrl:[this.editData.missionVideoUrl],
               missionAvilability:[this.editData.missionAvilability,Validators.compose([Validators.required])]
           });
           this.service.CityList(this.editData.countryId).subscribe((data:any)=>{
                 this.cityList = data.data;
           });
           if(this.editData.missionImages){
-            this.imageUrl = this.service.imageUrl + '/' + this.editData.missionImages
+            let imageList = this.editData.missionImages;
+            this.imageUrl = imageList.split(',');
+            for (const photo of this.imageUrl) {
+              this.imageListArray.push(this.service.imageUrl + '/' + photo.replaceAll('\\','/'));
+            }
+
+          }
+          if(this.editData.missionDocuments){
+            this.missionDocName = this.service.imageUrl + '/' + this.editData.missionDocuments
+            this.missionDocName = JSON.stringify(this.missionDocName).split("\\").pop();
+          }
+          if(this.editData.missionType=='Time')
+          {
+            this.typeFlag = true;
           }
       });
   }
@@ -111,43 +165,79 @@ export class UpdateMissionComponent implements OnInit {
   get missionOrganisationDetail() { return this.editMissionForm.get('missionOrganisationDetail') as FormControl; }
   get startDate() { return this.editMissionForm.get('startDate') as FormControl; }
   get endDate() { return this.editMissionForm.get('endDate') as FormControl; }
-  get totalSheets() { return this.editMissionForm.get('totalSheets') as FormControl; }
-  get registrationDeadLine() { return this.editMissionForm.get('registrationDeadLine') as FormControl; }
-  get missionTheme() { return this.editMissionForm.get('missionTheme') as FormControl; }
-  get missionSkill() { return this.editMissionForm.get('missionSkill') as FormControl; }
+  get missionType() { return this.editMissionForm.get('missionType') as FormControl; }
+  get missionThemeId() { return this.editMissionForm.get('missionThemeId') as FormControl; }
+  get missionSkillId() { return this.editMissionForm.get('missionSkillId') as FormControl; }
   get missionImages() { return this.editMissionForm.get('missionImages') as FormControl; }
   get missionDocuments() { return this.editMissionForm.get('missionDocuments') as FormControl; }
   get missionAvilability() { return this.editMissionForm.get('missionAvilability') as FormControl; }
 
 
   OnSelectedImage(event:any){
-    if(event.target.files && event.target.files[0])
+    const files = event.target.files;
+    if(this.imageListArray.length > 5)
+    {
+      return this.toast.error({detail:"ERROR",summary:"Maximum 6 images can be added.",duration:3000});
+    }
+    if(files)
     {
       this.formData = new FormData();
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload =(e:any)=>{
-          this.imageUrl = e.target.result;
-      }
-
-      for(let i=0;i<event.target.files.length;i++)
+      for(const file of files)
       {
-          this.formData.append('file',event.target.files[i]);
+        const reader = new FileReader();
+        reader.onload = (e:any)=>{
+            this.imageListArray.push(e.target.result);
+        }
+        reader.readAsDataURL(file)
+      }
+      for(let i=0;i<files.length;i++)
+      {
+          this.formData.append('file',files[i]);
           this.formData.append('moduleName','Mission');
       }
       this.isFileUpload = true;
     }
+  }
+OnSelectedDocument(event:any){
+  if(event.target.files && event.target.files[0])
+  {
+    this.formDoc = new FormData();
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload =(e:any)=>{
+        this.missionDocName = e.target.result;
+        this.missionDocText = 'Document Upload Successfully..';
+    }
+
+    for(let i=0;i<event.target.files.length;i++)
+    {
+        this.formDoc.append('file',event.target.files[i]);
+        this.formDoc.append('moduleName','MissionDoc');
+    }
+    this.isDocUpload = true;
+  }
 }
-async OnSubmit(){
+async OnSubmit(){debugger;
   this.formValid = true;
   let value = this.editMissionForm.value;
   let updateImageUrl = '';
+  let updatemissionDoc = '';
+  var SkillLists = value.missionSkillId.join(",");
+  value.missionSkillId = SkillLists;
+
   if(this.editMissionForm.valid)
   {
     if(this.isFileUpload){
       await this.service.UploadImage(this.formData).pipe().toPromise().then((res:any)=>{
         if(res.success){
           updateImageUrl = res.data;
+        }
+      },err=>this.toast.error({detail:"ERROR",summary:err.error.message}));
+    }
+    if(this.isDocUpload){
+      await this.service.UploadDoc(this.formDoc).pipe().toPromise().then((res:any)=>{
+        if(res.success){
+          updatemissionDoc = res.data;
         }
       },err=>this.toast.error({detail:"ERROR",summary:err.error.message}));
     }
@@ -158,6 +248,14 @@ async OnSubmit(){
     else
     {
       value.missionImages = this.editData.missionImages;
+    }
+    if(this.isDocUpload)
+    {
+      value.missionDocuments = updatemissionDoc;
+    }
+    else
+    {
+      value.missionDocuments = this.editData.missionDocuments;
     }
     this.service.UpdateMission(value).subscribe((data:any)=>{
           if(data.result == 1)
@@ -173,11 +271,19 @@ async OnSubmit(){
             this.toastr.error(data.message);
            // this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
           }
-    },err=>this.toast.error({detail:"ERROR",summary:err.error.message,duration:3000}));
+    },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}));
   }
 }
   OnCancel()
   {
     this.router.navigateByUrl('admin/mission');
   }
+  OnRemoveImage(item:any){
+    const index : number = this.imageListArray.indexOf(item);
+    if(item !== -1 )
+    {
+     this.imageListArray.splice(index,1);
+   }
+  }
+
 }

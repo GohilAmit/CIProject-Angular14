@@ -61,7 +61,6 @@ export class CMSEditComponent implements OnInit {
         this.service.UpdateCMS(editFormValue).subscribe((data:any)=>{
               if(data.result == 1)
               {
-                // this.toastr.success(data.data);
                 this.toast.success({detail:"SUCCESS",summary:data.data,duration:3000});
                 setTimeout(() => {
                   this.router.navigate(['admin/cms']);
@@ -69,7 +68,6 @@ export class CMSEditComponent implements OnInit {
               }
               else
               {
-                // this.toastr.error(data.message);
                 this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
               }
         });

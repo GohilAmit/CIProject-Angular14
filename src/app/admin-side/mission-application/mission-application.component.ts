@@ -26,8 +26,8 @@ export class MissionApplicationComponent implements OnInit {
       }
       else
       {
-        this.toast.error({detail:"ERROR",summary:data.message});
+        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
-    },err=>this.toast.error({detail:"ERROR",summary:err.message}));
+    },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}));
   }
 }

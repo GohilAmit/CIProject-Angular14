@@ -114,11 +114,6 @@ export class VolunteeringTimesheetComponent implements OnInit {
 
   GetVolunteeringHoursById(id:any)
   {
-    // var data = this.hoursList.find((v:VolunteeringHours) => v.id == id);
-    // let dateformat =  this.datePipe.transform(data.dateVolunteered,"yyyy-MM-dd");
-    // data.dateVolunteered = dateformat;
-    //   this.volunteeringHoursForm.patchValue(data);
-    //   this.OpenVolunteeringHoursModal();
     this.service.GetVolunteeringHoursById(id).subscribe((data:any)=>{
       if(data.result == 1)
       {
@@ -130,9 +125,9 @@ export class VolunteeringTimesheetComponent implements OnInit {
       }
       else
       {
-        this.toast.error({summary:data.message});
+        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
-    },err=>this.toast.error({summary:err.message}))
+    },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}))
 
   }
   OnVolunteringHoursSubmit(){
@@ -163,7 +158,7 @@ export class VolunteeringTimesheetComponent implements OnInit {
             }
             else
             {
-              this.toast.error({summary:data.message});
+              this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
             }
           })
       }
@@ -187,7 +182,7 @@ export class VolunteeringTimesheetComponent implements OnInit {
             }
             else
             {
-              this.toast.error({summary:data.message});
+              this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
             }
           })
       }
@@ -210,7 +205,7 @@ export class VolunteeringTimesheetComponent implements OnInit {
         {
           this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
         }
-      },err=>this.toastr.error(err.message));
+      },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}));
   }
 
   //*****************************************Volunteering TimeSheet Goals ************************************************** */
@@ -255,9 +250,9 @@ export class VolunteeringTimesheetComponent implements OnInit {
       }
       else
       {
-        this.toast.error({summary:data.message});
+        this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
-    },err=>this.toast.error({summary:err.message}));
+    },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}));
   }
   OnVolunteringGoalsSubmit(){
     let value = this.volunteeringGoalsForm.value;
@@ -287,7 +282,7 @@ export class VolunteeringTimesheetComponent implements OnInit {
             }
             else
             {
-              this.toast.error({summary:data.message});
+              this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
             }
           })
       }
@@ -311,7 +306,7 @@ export class VolunteeringTimesheetComponent implements OnInit {
             }
             else
             {
-              this.toast.error({summary:data.message});
+              this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
             }
           })
       }
@@ -331,9 +326,9 @@ export class VolunteeringTimesheetComponent implements OnInit {
         }
         else
         {
-          this.toast.error({summary:data.message});
+          this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
         }
-      },err=>this.toastr.error(err.message));
+      },err=>this.toast.error({detail:"ERROR",summary:err.message,duration:3000}));
   }
 
 }

@@ -11,7 +11,7 @@ import { ClientService } from '../service/client.service';
   templateUrl: './story-detail.component.html',
   styleUrls: ['./story-detail.component.css']
 })
-export class StoryDetailComponent implements OnInit,AfterViewInit {
+export class StoryDetailComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   gallery:any[]=[];
@@ -21,9 +21,7 @@ export class StoryDetailComponent implements OnInit,AfterViewInit {
   userName:any;
   imageList:any=[];
   constructor(private service:ClientService,public router:Router,public activeRoute:ActivatedRoute,private toast:NgToastService,public datePipe:DatePipe) { }
-  ngAfterViewInit(): void {
 
-  }
 
   ngOnInit(): void {
     this.storyId = this.activeRoute.snapshot.paramMap.get('Id');
@@ -44,7 +42,7 @@ export class StoryDetailComponent implements OnInit,AfterViewInit {
 
   StoryDetail(id:any){
 
-    this.service.StoryDetail(id).subscribe((data:any)=>{
+    this.service.StoryDetail(id).subscribe((data:any)=>{debugger;
         if(data.result == 1)
         {
           this.storyDetail = data.data;
@@ -75,5 +73,8 @@ export class StoryDetailComponent implements OnInit,AfterViewInit {
       });
     }
     return imageUrls;
+  }
+  RedirectToMission(){
+    this.router.navigate(['/home']);
   }
 }

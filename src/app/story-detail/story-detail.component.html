@@ -15,7 +15,7 @@
               <p class="userName">{{userName}}</p>
             </div>
             <div class="col-sm-4" style="display: flex;justify-content: flex-end;">
-              <button class="viewButton"><i class="fa fa-eye"></i><span>12,000 Views</span></button>
+              <button class="viewButton"><i class="fa fa-eye"></i><span>&nbsp;{{storyDetail.storyViewerCount}} Views</span></button>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@
             <span>
                 <img src="assets/Img/add1.png" alt="NoImage">&nbsp;
             </span>Recommend to a Co-Worker</span></button>&nbsp;&nbsp;&nbsp;
-          <button class="btnOpenMission" type="submit"><span class="openMission">Apply Now &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
+          <button class="btnOpenMission" type="button" (click)="RedirectToMission()"><span class="openMission">Open Mission &nbsp;<i style="margin-top: 5px !important;" class="fa fa-arrow-right"></i></span></button>
         </div>
     </div>
   </div>

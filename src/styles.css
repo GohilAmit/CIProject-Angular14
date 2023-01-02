@@ -47,3 +47,8 @@
 .k-button .k-icon-button{
   border: none;
 }
+.toast-right-top.error{
+  border-left: 8px solid #ff355b;
+  background-color: #ffe7e6;
+  height: fit-content !important;
+}

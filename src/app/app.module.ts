@@ -39,7 +39,8 @@ import { TokenInterceptor } from './Interceptors/token.interceptor';
 import { NgToastModule } from 'ng-angular-popup';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchPipe } from './Pipe/search.pipe';
-
+import { NgxStarRatingModule } from 'ngx-star-rating';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +84,9 @@ import { SearchPipe } from './Pipe/search.pipe';
     AdminSideModule,
     NgbModule,
     NgToastModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxStarRatingModule,
+    UiSwitchModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
